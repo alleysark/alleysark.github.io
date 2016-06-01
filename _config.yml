@@ -1,12 +1,12 @@
 # main text of home
-name: John Doe
-bio: 'A Man who travels the world eating noodles'
+name: alleysark
+bio: 'A game developer who likes the cats'
 
 # if it's an external image, update below for true
 external-image: false
 picture: 'assets/images/profile.jpg'
 
-url: http://koppl.in/indigo
+url: http://alleysark.github.io
 # your url: http://USERNAME.github.io
 
 permalink: /:title/
@@ -22,21 +22,21 @@ highlighter: rouge
 # analytics-piwik-id: 1
 
 # if you don't want comments in your posts, set to false
-disqus: mydisqus
+#disqus: mydisqus
 
 # if you don't have any of social below, comment the line
 facebook: myfacebook
-twitter: mytwitter
+linkedin: https://www.linkedin.com/in/%EC%98%88%EB%9E%8C-%EC%8B%AC-3825488b
+github: https://github.com/alleysark
+email: dev.alleysark@gmail.com
+# twitter: mytwitter
 # google: mygoogle
 # instagram: myinstagram
 # pinterest: mypinterest
-# linkedin: mylinkedin
-youtube: myyoutube
-spotify: myspotify
-github: mygithub
-medium: medium
-vimeo: myvimeo
-email: myemail@gmail.com
+# youtube: myyoutube
+# spotify: myspotify
+# medium: medium
+# vimeo: myvimeo
 
 # do you want a larger site? change the option below
 # options: [normal, large] | default: normal
@@ -47,10 +47,8 @@ width: normal
 # paginate: 5
 # paginate_path: "blog/:num/"
 
-# if you don't need projects, comment the *projects* configs below
-projects: true
-
-# if you don't need "about" or "blog", comment them out below
+# if you don't need projects, about, blog, comment the *projects* configs below
+#projects: true
 about: true
 blog: true
 
