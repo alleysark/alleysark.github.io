@@ -6,7 +6,8 @@ bio: 'A game developer who likes the cats'
 external-image: false
 picture: 'assets/images/profile.jpg'
 
-url: http://alleysark.github.io
+#url: http://alleysark.github.io
+url: http://192.168.56.1:4000
 # your url: http://USERNAME.github.io
 
 permalink: /:title/
