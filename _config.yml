@@ -8,7 +8,6 @@ picture: 'assets/images/profile.jpg'
 
 # your url: http://USERNAME.github.io
 url: http://alleysark.github.io
-# url: http://192.168.56.1:4000
 
 permalink: /:title/
 
@@ -23,7 +22,7 @@ highlighter: rouge
 # analytics-piwik-id: 1
 
 # if you don't want comments in your posts, set to false
-#disqus: mydisqus
+disqus: mydisqus
 
 # if you don't have any of social below, comment the line
 linkedin: 예람-심-3825488b
