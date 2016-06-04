@@ -1,13 +1,13 @@
 # main text of home
 name: alleysark
-bio: 'A game developer who likes the cats'
+bio: 'A computer game programmer who likes cats'
 
 # if it's an external image, update below for true
 external-image: false
 picture: 'assets/images/profile.jpg'
 
 # your url: http://USERNAME.github.io
-url: http://alleysark.github.io
+url: 
 
 permalink: /:title/
 
@@ -22,7 +22,7 @@ highlighter: rouge
 # analytics-piwik-id: 1
 
 # if you don't want comments in your posts, set to false
-disqus: mydisqus
+disqus: alleysark
 
 # if you don't have any of social below, comment the line
 linkedin: 예람-심-3825488b
