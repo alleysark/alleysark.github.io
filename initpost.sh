@@ -46,7 +46,8 @@ POSTPATH="${BINPATH}/_posts"
 DIST_FOLDER="$POSTPATH"
 
 # Set your blog URL
-BLOG_URL="https://koppl.in/indigo"
+BLOG_URL="http://alleysark.kr"
+AUTHOR="alleysark"
 
 # Set your assets URL
 ASSETS_URL="assets/images/"
@@ -110,14 +111,12 @@ EOT
 initpost_content() {
 
 echo "---"
-echo "title: \"${POST_TITLE}\""
 echo "layout: post"
+echo "title: \"${POST_TITLE}\""
 echo "date: ${CURRENT_DATE} ${TIME}"
+echo "author: \"${AUTHOR}\""
 echo "image: '/assets/images/'"
-echo "description:"
 echo "tags:"
-echo "blog: true"
-echo "jemoji:"
 echo "---"
 
 }
