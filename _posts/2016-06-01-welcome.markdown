@@ -1,12 +1,10 @@
 ---
-title: "Welcome"
 layout: post
+title: "Welcome"
 date: 2016-06-01 23:14:31
+author: "alleysark"
 image: '/assets/images/'
-description: 앨리삵의 블로그에 오신것을 환영합니다 :D
-tags: scribble
-blog: true
-jemoji:
+tags: [scribble]
 ---
 
 이곳은 앨리삵의 개인 블로그입니다.
