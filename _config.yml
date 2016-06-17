@@ -11,6 +11,9 @@ url:
 
 permalink: /:title/
 
+timezone: America/New_York
+future: true
+
 markdown: kramdown
 highlighter: rouge
 
