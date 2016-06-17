@@ -9,9 +9,10 @@ tags: [ue4, game programming]
 
 개인적으로 여러 게임 엔진들 중 언리얼 엔진이 가장 세련되었다고 생각합니다. 그런데 언리얼 엔진을 다뤄볼 일이 많지 않아 엔진 구조나 API를 잘 아는것도 아니고, 엔진 소스를 공개하고 있음에도 제대로 뜯어보지도 못해 애매하게 좋아하는 상태입죠. 그래서 시간이 나는 틈에 언리얼 엔진을 조금 깊이있게 파헤쳐보려합니다.
 
-우선 언리얼 엔진에 가입을 하고, GitHub 계정을 연동시킨 후, 언리얼 엔진 저장소에 접근해서 코드를 내려받습니다. 자세한 내용은 [언리얼 엔진 소스 코드 내려받기](https://docs.unrealengine.com/latest/KOR/GettingStarted/DownloadingUnrealEngine/index.html) 페이지에서 확인하실 수 있습니다. 소스코드는 포크를 떠도 괜찮고 zip 파일로 다운로드 받아도 상관 없습니다. 저는 최근 릴리즈된 4.12 버전을 내려받았습니다.
+잴 것 없이 소스를 받아 빌드 먼저 해봅시다. 언리얼 엔진에 가입을 하고, GitHub 계정을 연동시킨 후, 언리얼 엔진 저장소에 접근해서 코드를 내려받습니다. 자세한 내용은 [언리얼 엔진 소스 코드 내려받기](https://docs.unrealengine.com/latest/KOR/GettingStarted/DownloadingUnrealEngine/index.html) 페이지에서 확인하실 수 있습니다. 소스코드는 포크를 떠도 괜찮고 zip 파일로 다운로드 받아도 상관 없습니다. 저는 최근 릴리즈된 4.12 버전을 내려받았습니다.
 
 # Unreal Engine 4 빌드하기
+
 ## Setup.bat 실행
 언리얼 엔진을 빌드하기 위한 dependency file들을 설치해주는 배치 프로그램입니다. 실행하면 관련 파일들의 다운로드를 시작하고, 이는 몇 분 내로 끝납니다.
 
