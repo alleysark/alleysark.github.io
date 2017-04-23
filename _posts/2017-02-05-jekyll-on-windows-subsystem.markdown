@@ -61,9 +61,9 @@ bundler는 jekyll page에서 필요한 여러 gem을 쉽게 다운로드하고 �
 ## jekyll 설치 및 블로그 생성
 이제 jekyll을 설치하고 블로그를 생성합니다. 포스팅 시점에서 jekyll 최신버전은 3.4.0인데 github-page가 사용하는 버전은 3.3.1이었습니다. 그 외 gem의 dependencies는 아래 페이지에서 확인할 수 있는데, jekyll과 필요한 gem을 설치하기 전에 버전을 확인하시는 것 이 좋습니다. [Ggithub page dependency versions](https://pages.github.com/versions/).
 
-    $ gem jekyll install -v 3.3.1
-    $ jekyll new YOUR-GITHUB-PAGE-REPO-NAME
-    $ cd YOUR-GITHUB-PAGE-REPO-NAME
+    $ gem install jekyll -v 3.3.1
+    $ jekyll new YOUR-JEKYLL-SITE-NAME
+    $ cd YOUR-JEKYLL-SITE-NAME
 
 이제 기본적인 jekyll blog가 생성되었습니다.
 잘 생성되었는지 확인하기 위해 아래 명령으로 블로그 서비스를 시작해봅시다.
