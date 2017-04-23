@@ -1,12 +1,11 @@
 source "https://rubygems.org"
 
-gem 'jekyll', '~> 3.3.1'
+gem 'jekyll', '~> 3.4.3'
 
-gem 'github-pages', group: :jekyll_plugins
+gem 'github-pages', '~> 134', group: :jekyll_plugins
 
 group :jekyll_plugins do
-   gem 'jekyll-feed', '~> 0.6'
-
+   gem 'jekyll-feed', '~> 0.9.2'
    gem 'rake'
    gem 'rouge'
    gem 'pygments.rb'
