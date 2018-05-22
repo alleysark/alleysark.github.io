@@ -3,7 +3,7 @@ layout: post
 title: "Behavior Tree로 스플라인 팔로잉 AI 만들기"
 date: 2018-05-22 19:42:15
 author: "alleysark"
-image: '/assets/images/'
+image: '/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/'
 tags: [ue4, game programming, ai]
 ---
 
@@ -16,18 +16,18 @@ AI 에이전트가 정해진 경로를 패트롤하는 기능은 게임에서 �
 ## Path 정의
 가장 먼저 에이전트가 따라 움직일 경로인 Path 객체를 만들어야 합니다. 새 블루프린트 액터를 생성하고 이름을 **Path**라 지정합니다. 그리고 [*Spline Component*][2]를 추가해줍니다.
 
-![Add USplineComponent into Path Actor]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/Path-component-list.png)
+![Add USplineComponent into Path Actor]({{site.url}}{{page.image}}Path-component-list.png)
 
 사실 Path 정의는 이 정도로 충분하지만, 스플라인 팔로잉에 필요한 기능을 Path에 구현해두면 앞으로 사용하기 더 편할 것입니다. 그래서 Path 액터에 몇 가지 기능을 추가하겠습니다.
 
 ### 특정 스플라인 시간의 위치 구하기
-![GetPathLocationAtTime]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/GetPathLocationAtTime.png)
+![GetPathLocationAtTime]({{site.url}}{{page.image}}GetPathLocationAtTime.png)
 
 [USplineComponent][2]의 기능 중 [GetLocationAtTime][3]은 주어진 스플라인 시간으로 스플라인의 패스 포인트들을 보간한 위치를 반환합니다. 그런데 이 함수는 Coordinate Spate나 Constant Velocity 여부를 지정해줘야해서 번거롭습니다. 또한 외부에서 Spline 컴포넌트로의 접근을 제한하는 목적으로 Path 액터에 GetLocationAtTime 함수를 작성해줍니다.
 
 ### 특정 위치에 가장 인접한 스플라인 위치 구하기
 
-![FindTimeClosestToWorldLocation]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/FindTimeClosestToWorldLocation.png)
+![FindTimeClosestToWorldLocation]({{site.url}}{{page.image}}FindTimeClosestToWorldLocation.png)
 
 스플라인 팔로잉을 수행하기 위한 중요한 기능이 하나 있습니다. 바로 월드 위치에서 가장 인접한 스플라인의 위치를 찾는 기능입니다. [USplineComponent][2]에는 [FindInputKeyClosestToWorldLocation][4] 기능이 있습니다만, 이는 스플라인의 InputKey를 반환합니다. 
 
@@ -38,7 +38,7 @@ InputKey를 사용해 스플라인을 보간하면 각 패스 세그먼트의 �
 > UE4의 USplineComponent는 스플라인 세그먼트 시퀀스의 보간 속도 연속성을 유지하는 방법으로 [Reparameterization Table][5] 기법을 사용합니다. 
 
 ### 팔로잉 에이전트와 적정 거리 유지하기
-![ComputeTimeSeparatedFrom]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/ComputeTimeSeparatedFrom.png)
+![ComputeTimeSeparatedFrom]({{site.url}}{{page.image}}ComputeTimeSeparatedFrom.png)
 
 한 가지 도움이 될 기능은 스플라인 위의 위치 중 팔로잉 에이전트와 적정 거리를 유지하는 스플라인 시간 어드밴스 기능입니다. 뒤에 자세히 설명할 패스 팔로잉 로직의 큰 흐름은 스플라인상 특정 위치를 구하고 해당 위치로 이동하는 것인데, 팔로잉 에이전트가 스플라인 위치에 너무 가까워지면 이동 명령이 종료되기 때문에 '적당한 간격을 유지하는' 스플라인 시간 갱신 기능이 필요합니다. 위의 블루프린트 노드는 이런 요구 사항을 구현한 것입니다.
 
@@ -51,14 +51,14 @@ AI 에이전트는 앞으로 작성할 Behavior Tree를 통해 제어될 행위�
 
 에이전트는 특별한 기능은 없습니다. 다만, 패스 팔로잉할 액터를 변수로 선언해줍니다.
 
-![Agent Following Path Variable]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/Agent-variable-pannel.png)
+![Agent Following Path Variable]({{site.url}}{{page.image}}Agent-variable-pannel.png)
 
 그 다음 클래스 디폴트 디테일 패널에서 뒤에 정의할 AI Controller를 AI Controller Class로 지정합니다.
 
 ## Behavior Tree 작성
 이제 본격적으로 스플라인 팔로잉을 수행하는 Behavior Tree를 작성해봅시다. 먼저 가장 큰 틀인 Behavior Tree를 생성합니다.
 
-![Add New Behavior Tree]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/NewBT.png)
+![Add New Behavior Tree]({{site.url}}{{page.image}}NewBT.png)
 
 그리고 블랙보드도 같이 만들고 새로 만든 Behavior Tree의 블랙보드로 설정합니다.
 
@@ -68,7 +68,7 @@ AI 에이전트는 앞으로 작성할 Behavior Tree를 통해 제어될 행위�
 2. 현재 에이전트 위치에서 가장 가까운 패스 지점을 찾는다
 3. 해당 지점부터 패스를 따라간다 <- 다른 액션이 있기까지 이 태스크에 머무른다
 
-![Patrol Behavior Tree]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/BT.png)
+![Patrol Behavior Tree]({{site.url}}{{page.image}}BT.png)
 
 다르게 작성할 수도 있겠지만, 가급적 MoveTo 태스크와 유사하게 팔로잉 로직에 액션 상태가 머무를 수 있도록 했습니다.
 
@@ -77,23 +77,23 @@ Behavior Tree는 태스크간 정보 전달의 매개체로 블랙보드를 사�
 
 > 다수의 에이전트끼리 서로 정보를 공유하는 집단 행동을 처리할 때 블랙보드의 진가를 맛볼 수 있습니다.
 
-![Blackboard key settings]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/Blackboard-key-list.png)
+![Blackboard key settings]({{site.url}}{{page.image}}Blackboard-key-list.png)
 
 주요 블랙보드 키는 UObject 타입의 PathToFollow와 float 타입의 CurSplineTime입니다. PathToFollow는 Behavior Tree를 이용할 에이전트가 따라갈 Path 액터 인스턴스를 저장하고, CurSplineTime은 에이전트가 현재 따라가고 있는 스플라인 위치의 스플라인 시간을 나타냅니다.
 
 ### FindClosestPathTime Task 작성
 새 Behavior Tree 태스크를 작성해야 합니다. 
-![Create new BT Task]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/Create-New-BTTask.png)
+![Create new BT Task]({{site.url}}{{page.image}}Create-New-BTTask.png)
 
 BTTask_BlueprintBase 클래스를 상속해 구현하면 됩니다. 이와 비슷하게 커스텀 서비스나 커스텀 데코레이터도 쉽게 만들 수 있습니다.
 
-![BT Task FindClosestPathTime]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/BTTask_FindClosestPathTime.png)
+![BT Task FindClosestPathTime]({{site.url}}{{page.image}}BTTask_FindClosestPathTime.png)
 
 이 태스크는 패스 팔로잉 수행 전 초기 팔로잉 위치를 갱신하는 역할을 수행합니다. 앞서 구현해둔 Path 액터의 *FindTimeClosestToWorldLocation* 함수를 사용해 PathFollow 태스크 수행 전 초기 스플라인 위치를 구해두는 것입니다. 스플라인 시간을 잘 찾았으면 Finish Execute하여 Behavior Tree의 부모 노드가 다음 처리를 수행할 수 있도록 합니다.
 
 태스크를 수행하기 위해 앞서 정의한 블랙보드 값을 가져와야 하므로 PathToFollow와 SplineTime에 대한 BlackboardKeySelector 변수를 선언하고 '편집 가능' 토글을 활성화 해둡니다.
 
-![BT Task Variables]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/BTTask-variables.png)
+![BT Task Variables]({{site.url}}{{page.image}}BTTask-variables.png)
 
 함수의 DistanceThreshold 값과 UpdatePrecision 값은 적당히 넣어주거나, 에이전트에 정의해둘 수 있습니다.
 
@@ -102,9 +102,9 @@ BTTask_BlueprintBase 클래스를 상속해 구현하면 됩니다. 이와 비�
 ### FollowPath Task 작성
 이제 스플라인 팔로잉의 핵심 태스크인 FollowPath 태스크를 작성합니다.
 
-![BT Task FollowPath Execute]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/BTTask_FollowPath_Execute.png)
+![BT Task FollowPath Execute]({{site.url}}{{page.image}}BTTask_FollowPath_Execute.png)
 
-![BT Task FollowPath Tick]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/BTTask_FollowPath_Tick.png)
+![BT Task FollowPath Tick]({{site.url}}{{page.image}}BTTask_FollowPath_Tick.png)
 
 Execute 이벤트에서는 사용할 Path 인스턴스를 저장해둡니다. (사실 Tick에서 블랙보드 키로 매번 구해와도 됩니다. 이게 더 좋습니다.)
 
@@ -117,20 +117,20 @@ Tick 이벤트에서는 블랙보드에 기록된 스플라인 시간의 위치�
 
 *OnPossess* 이벤트를 오버라이드하여 아래와 같이 Behavior Tree를 실행해주면 됩니다.
 
-![AI Controller OnPossess]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/AIController-OnPossess.png)
+![AI Controller OnPossess]({{site.url}}{{page.image}}AIController-OnPossess.png)
 
 마지막으로 블랙보드의 PathToFollow를 현재 포즈된 에이전트가 참조하는 패스 인스턴스로 설정해주고,
 
-![AI Controller Set Path]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/AIController-SetFollowingPath-BB.png)
+![AI Controller Set Path]({{site.url}}{{page.image}}AIController-SetFollowingPath-BB.png)
 
 패트롤이 필요한 시점에 IsFollowing 블랙보드 값을 설정하면 동작할 것입니다.
 
-![AI Controller Set IsFollowing]({{site.url}}/assets/posts/how-to-make-spline-following-ai-with-behavior-tree/AIController-SetIsFollowing-BB.png)
+![AI Controller Set IsFollowing]({{site.url}}{{page.image}}AIController-SetIsFollowing-BB.png)
 
 ## 테스트
 적당히 맵을 만들고 내비메시 바운드 볼륨을 설치합니다. 그리고 Path 액터를 맵에 배치해 에이전트가 패트롤 할 경로를 만들어줍니다. 에이전트를 월드에 배치하고 팔로잉할 패스를 지정한 뒤 실행을 하면, 짜잔~
 
-https://youtu.be/bDpmNHPPrKg
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bDpmNHPPrKg" frameborder="0" allowfullscreen></iframe>
 
 위 코드를 기반으로 조금 더 다양한 패트롤 행동들을 구현할 수도 있을 것입니다.
 
