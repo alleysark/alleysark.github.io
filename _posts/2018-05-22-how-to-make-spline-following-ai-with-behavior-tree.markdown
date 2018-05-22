@@ -130,7 +130,7 @@ Tick 이벤트에서는 블랙보드에 기록된 스플라인 시간의 위치�
 ## 테스트
 적당히 맵을 만들고 내비메시 바운드 볼륨을 설치합니다. 그리고 Path 액터를 맵에 배치해 에이전트가 패트롤 할 경로를 만들어줍니다. 에이전트를 월드에 배치하고 팔로잉할 패스를 지정한 뒤 실행을 하면, 짜잔~
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/bDpmNHPPrKg" frameborder="0" allowfullscreen></iframe>
+{% include youtube id='bDpmNHPPrKg' %}
 
 위 코드를 기반으로 조금 더 다양한 패트롤 행동들을 구현할 수도 있을 것입니다.
 
